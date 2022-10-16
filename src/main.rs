@@ -2,28 +2,25 @@ use core::time;
 use std::thread;
 
 fn main() {
-    // Once you've set up the Shop and Card structs, you should be able to
-    // uncomment this code
-    //
-    // let comic_book_shoppe = Shop {
-    //     cards: [
-    //         Card {
-    //             price: 10,
-    //             health: 10,
-    //             damage: 10,
-    //         },
-    //         Card {
-    //             price: 20,
-    //             health: 20,
-    //             damage: 20,
-    //         },
-    //         Card {
-    //             price: 30,
-    //             health: 30,
-    //             damage: 30,
-    //         },
-    //     ],
-    // };
+    let comic_book_shoppe = Shop {
+        cards: [
+            Card {
+                price: 10,
+                health: 10,
+                damage: 10,
+            },
+            Card {
+                price: 20,
+                health: 20,
+                damage: 20,
+            },
+            Card {
+                price: 30,
+                health: 30,
+                damage: 30,
+            },
+        ],
+    };
 
     println!("Welcome to The Comic Book Shoppe!");
     println!("We've got three cards for you to check out.");
@@ -32,8 +29,9 @@ fn main() {
         "Oh, you want to know how much the most expensive card we have is? Well, let's find out!"
     );
 
-    // Remember to add some time to sleep so that the customer thinks we're doing real
-    // work in the back!
+    /*     Remember to add some time to sleep so that the customer thinks we're doing real
+      work in the back
+    */
     thread::sleep(time::Duration::from_millis(500));
     println!("...");
     thread::sleep(time::Duration::from_millis(500));
@@ -68,29 +66,46 @@ fn main() {
 
 /// A Shop is a collection of 3 cards.
 struct Shop {
-    // TOOD: Add the field to this struct
+    cards: [Card; 3],
 }
 
 impl Shop {
     /// Get the price of the most expensive card in the shop
     fn most_expensive(&self) -> u32 {
-        todo!()
+        let mut largest: u32 = 0;
+        for n in &self.cards {
+            if largest < n.price {
+                largest = n.price
+            }
+        }
+        return largest;
     }
 
     /// Get the total damage of all cards in the shop
     fn total_damage(&self) -> u32 {
-        todo!()
+        let mut totaldamage: u32 = 0;
+        for n in &self.cards {
+            totaldamage += n.damage
+        }
+
+        return totaldamage;
     }
 
     /// Get the total health of all cards in the shop
     fn total_health(&self) -> u32 {
-        todo!()
+        let mut totalhealth: u32 = 0;
+        for n in &self.cards {
+            totalhealth += n.health
+        }
+        return totalhealth;
     }
 }
 
 /// A Card is a card stores a price, health, and damage.
 struct Card {
-    // TODO: Add fields to this struct
+    price: u32,
+    health: u32,
+    damage: u32,
 }
 
 #[cfg(test)]
@@ -106,6 +121,8 @@ mod tests {
             damage: 10,
         };
         assert_eq!(card.price, 10);
+        assert_eq!(card.health, 10);
+        assert_eq!(card.damage, 10);
     }
 
     #[test]
